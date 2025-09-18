@@ -1,0 +1,20 @@
+#2025-09-18T09:04:47+02:00
+#https://www.mongodb.com/products/self-managed/community-edition
+#https://www.mongodb.com/try/download/community
+#https://repo.mongodb.org/apt/ubuntu/dists/noble/mongodb-org/8.2/multiverse/binary-amd64/mongodb-org-server_8.2.0_amd64.deb
+- name: MongoDB Server Install from WebSite Installation (Ubuntu LTS 24)
+  hosts: all
+  tasks:
+    - name: Manual
+      ansible.builtin.shell: cd /root && curl -L -O https://repo.mongodb.org/apt/ubuntu/dists/noble/mongodb-org/8.2/multiverse/binary-amd64/mongodb-org-server_8.2.0_amd64.deb
+    - name: UpdateUpgrade
+      ansible.builtin.apt:
+        update_cache: yes
+        name: "*"
+        state: latest
+    - name: InstallPackages
+      ansible.builtin.apt:
+        pkg:
+          - ca-certificates
+          - curl
+          - build-essential
